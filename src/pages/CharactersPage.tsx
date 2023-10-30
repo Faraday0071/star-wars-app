@@ -2,17 +2,17 @@ import { FunctionComponent } from 'react'
 import { api } from '@/api'
 import { CardList } from '@/components/CardList/CardList'
 import { Spinner } from '@/components/Spinner/Spinner'
-import picture from '@/assets/x-wing.webp'
+import picture from '@/assets/test-c.jpeg'
 import { useGetList } from '@/hooks/useGetList'
 import { ROUTES } from '@/helpers/constants'
 
-const QUERY_KEY = ['vehicles']
+const QUERY_KEY = ['people']
 
-export const VehiclesPage: FunctionComponent = () => {
+export const CharactersPage: FunctionComponent = () => {
     const {ref, isFetching, isLoading, transformList } = useGetList({
-        getPageMethod: api.vehicles.getVehiclesPage,
+        getPageMethod: api.people.getPeoplePage,
         queryKey: QUERY_KEY,
-        resourceString: ROUTES.VEHICLE_DETAILS,
+        resourceString: ROUTES.PERSON_DETAILS,
         placholderPicture: picture,
     })
 

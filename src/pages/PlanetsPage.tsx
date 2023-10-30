@@ -1,52 +1,24 @@
-import { FunctionComponent, useMemo, useEffect, useRef } from 'react'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { useInView } from 'react-intersection-observer'
+import { FunctionComponent } from 'react'
 import { api } from '@/api'
-import { extractId } from '@/helpers/extractId'
-import { Planet } from '@/helpers/globalTypes'
-import { CardList, CardListProps } from '@/components/CardList/CardList'
+import { CardList } from '@/components/CardList/CardList'
 import { Spinner } from '@/components/Spinner/Spinner'
 import picture from '@/assets/Tatooine.jpeg'
+import { useGetList } from '@/hooks/useGetList'
+import { ROUTES } from '@/helpers/constants'
+
+const QUERY_KEY = ['planets']
 
 export const PlanetsPage: FunctionComponent = () => {
-    const isBufored = useRef(false)
-    const { inView, ref } = useInView({
-        threshold: 0,
-    })
-
-    const { data, isFetching, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ['planets'],
-        queryFn: async ({ pageParam = 1 }: { pageParam: number}) => {
-            const response = await api.planets.getPlanetsPage(pageParam)
-            return response.data
-        },
-        initialPageParam: 1,
-        getNextPageParam: (lastPage) => lastPage.next ? extractId(lastPage.next) : null,
-    })
-
-    const planets = useMemo(() => data?.pages.reduce((acc, curr) => {
-            return acc.concat(curr.results)
-        }, [] as Planet[]), [data?.pages])
-
-    useEffect(() => {
-        if (!isFetching && !isLoading && !isFetchingNextPage && inView && hasNextPage && planets?.length) {
-            isBufored.current && fetchNextPage()
-            isBufored.current = !isBufored.current
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchNextPage, inView, isFetching, isLoading])
-
-    const planetsForList: CardListProps['list'] = (planets || []).map(p => {
-        return {
-            name: p.name,
-            path: `${api.planets.PLANETS_STR}/details/${extractId(p.url)}`,
-            icon: picture,
-        }
+    const {ref, isFetching, isLoading, transformList } = useGetList({
+        getPageMethod: api.planets.getPlanetsPage,
+        queryKey: QUERY_KEY,
+        resourceString: ROUTES.PLANET_DETAILS,
+        placholderPicture: picture,
     })
 
     return (
         <>
-            <CardList list={planetsForList} isLoading={isLoading} />
+            <CardList list={transformList} isLoading={isLoading} />
             {isLoading || isFetching && <Spinner />}
             <div ref={ref} />
         </>

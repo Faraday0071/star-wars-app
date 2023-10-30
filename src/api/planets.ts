@@ -1,10 +1,8 @@
-import { swApi, SwApiPageResponse } from './instances'
-import { Planet } from '@/helpers/globalTypes'
-
-export type PlanetPage = SwApiPageResponse<Planet>
+import { swApi } from './instances'
+import { Planet, SwApiPageResponse } from '@/helpers/globalTypes'
 
 export const PLANETS_STR = '/planets'
 
-export const getPlanetsPage = (page: number) => swApi.get<PlanetPage>(`${PLANETS_STR}/?page=${page}`)
+export const getPlanetsPage = (page: number) => swApi.get<SwApiPageResponse<Planet>>(`${PLANETS_STR}/?page=${page}`)
 
-export const getPlanet = (id: number) => swApi.get(`${PLANETS_STR}/${id}`)
+export const getPlanet = (id: number) => swApi.get<Planet>(`${PLANETS_STR}/${id}`)

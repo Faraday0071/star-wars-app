@@ -6,6 +6,9 @@ export const ROUTES = {
     PEOPLE: '/people',
     VEHICLES: '/vehicles',
     PLANETS: '/planets',
+    PERSON_DETAILS: '/person-details',
+    VEHICLE_DETAILS: '/vehicle-details',
+    PLANET_DETAILS: '/planet-details'
 } as const
 
 type RoutesKeys = keyof typeof ROUTES;
@@ -33,3 +36,5 @@ export const NAV_LIST: NavListEl[] = [
         icon: PlanetsIcon,
     }
 ]
+
+export const PERSON_DETAILS_ROUTE = 'person-details/'

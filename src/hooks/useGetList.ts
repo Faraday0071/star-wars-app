@@ -19,7 +19,7 @@ export const useGetList = <T extends { name: string; url: string }, S extends Sw
     resourceString,
     placholderPicture,
 }: UsegetListArg<S>) => {
-    const isBufored = useRef(false)
+    const isBufored = useRef(false) //because of strict mode
     const { inView, ref } = useInView({
         threshold: 0,
     })
@@ -49,7 +49,7 @@ export const useGetList = <T extends { name: string; url: string }, S extends Sw
     const transformList: CardListProps['list'] = useMemo(() => (fullDataList || []).map(p => {
         return {
             name: p.name,
-            path: `${resourceString}/details/${extractId(p.url)}`,
+            path: `${resourceString}/${extractId(p.url)}`,
             icon: placholderPicture,
         }
     }), [fullDataList, placholderPicture, resourceString])

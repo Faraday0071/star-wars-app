@@ -1,7 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { CharacterPage } from '@/pages/CharacterPage'
+import { CharactersPage } from '@/pages/CharactersPage'
 import { PlanetsPage } from '@/pages/PlanetsPage'
 import { VehiclesPage } from '@/pages/VehiclesPage'
+import { PersonDetailsPage } from '@/pages/PersonDetailsPage'
 import { mainLayoutFn } from '@/layouts/MainLayout/MainLayout'
 import { ROUTES } from '@/helpers/constants'
 
@@ -12,36 +13,33 @@ export const router = createBrowserRouter([
     },
     {
         path: ROUTES.PEOPLE,
-        element: mainLayoutFn(CharacterPage),
+        element: mainLayoutFn(CharactersPage),
         errorElement: <div>404</div>,
-        children: [
-            {
-                path: 'details/:personId',
-                element: <div>placeholder</div>
-            }
-        ]
+    },
+    {
+        path: `${ROUTES.PERSON_DETAILS}/:id`,
+        element: mainLayoutFn(PersonDetailsPage),
+        errorElement: <div>404</div>,
     },
     {
         path: ROUTES.VEHICLES,
         element: mainLayoutFn(VehiclesPage),
         errorElement: <div>404</div>,
-        children: [
-            {
-                path: 'details/:vehicleId',
-                element: <div>placeholder</div>
-            }
-        ]
+    },
+    {
+        path: `${ROUTES.VEHICLE_DETAILS}/:id`,
+        element: mainLayoutFn(PersonDetailsPage),
+        errorElement: <div>404</div>,
     },
     {
         path: ROUTES.PLANETS,
         element: mainLayoutFn(PlanetsPage),
         errorElement: <div>404</div>,
-        children: [
-            {
-                path: 'details/:planetsId',
-                element: <div>placeholder</div>
-            }
-        ]
+    },
+    {
+        path: `${ROUTES.PLANET_DETAILS}/:id`,
+        element: mainLayoutFn(PersonDetailsPage),
+        errorElement: <div>404</div>,
     },
     {
         path: '*',
