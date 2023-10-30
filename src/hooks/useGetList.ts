@@ -7,7 +7,7 @@ import { SwApiPageResponse } from '@/helpers/globalTypes'
 import { CardListProps } from '@/components/CardList/CardList'
 import { useDebounce } from '@/hooks/useDebounce'
 
-type UsegetListArg<T extends SwApiPageResponse<unknown>> = {
+type UseGetListArg<T extends SwApiPageResponse<unknown>> = {
     getPageMethod: (page: number) => Promise<AxiosResponse<T>>;
     queryKey: string[];
     resourceString: string;
@@ -23,10 +23,10 @@ export const useGetList = <T extends { name: string; url: string }, S extends Sw
     placholderPicture,
     searchMethod,
     delaySearch = 500,
-}: UsegetListArg<S>) => {
+}: UseGetListArg<S>) => {
     const [search, setSearch] = useState<string>('')
     const debounceSearch = useDebounce(search, delaySearch)
-    const isBufored = useRef(false) //because of strict mode
+    const isBufored = useRef(false)
     const { inView, ref } = useInView({
         threshold: 0,
     })
