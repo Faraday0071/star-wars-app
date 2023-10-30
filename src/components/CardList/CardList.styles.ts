@@ -1,9 +1,19 @@
 import styled from 'styled-components'
+import { styleConst } from '@/globalStyles/constants'
 
 const Container = styled.div`
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    justify-content: center;
+    
+    ${styleConst.MEDIA_QUERY} {
+        flex-wrap: unset;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 220px;
+        margin: 0 auto;
+    }
 `
 const SpinnerContainer = styled.div`
     display: flex;

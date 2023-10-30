@@ -4,11 +4,11 @@ import { styleConst } from '@/globalStyles/constants'
 const Container = styled.div`
     width: 100%;
     padding: 1rem;
+    margin-bottom: 2rem;
 `
 const Input = styled.input`
-    width: 90%;
+    width: 100%;
     height: 2rem;
-    margin: 0 auto;
     padding: 0.5rem;
     background-color: transparent;
     border: 3px solid white;

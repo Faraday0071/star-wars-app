@@ -5,6 +5,7 @@ import { Spinner } from '@/components/Spinner/Spinner'
 import picture from '@/assets/x-wing.webp'
 import { useGetList } from '@/hooks/useGetList'
 import { ROUTES } from '@/helpers/constants'
+import { SearchInput } from '@/components/Searchinput/SearchInput'
 
 const QUERY_KEY = ['vehicles']
 
@@ -19,7 +20,7 @@ export const VehiclesPage: FunctionComponent = () => {
 
     return (
         <>
-            <input value={search} onChange={(e) => setSearch(e.target.value)} style={{ backgroundColor: 'black' }} />
+            <SearchInput search={search} setSearch={setSearch} />
             <CardList list={transformList} isLoading={isLoading} />
             {isLoading || isFetching && <Spinner />}
             <div ref={ref} />

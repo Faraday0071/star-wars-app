@@ -17,6 +17,10 @@ const Link = styled(RouterLink)`
     all: unset;
     display: inline-block;
     cursor: pointer;
+
+    ${styleConst.MEDIA_QUERY} {
+        display: none;
+    }
 `
 
 export const Styled = {

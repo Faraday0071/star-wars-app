@@ -18,7 +18,7 @@ export const NavBar: FunctionComponent<{ list?: NavBarListEl[] }> = ({ list }) =
                 <Styled.ListEl key={el.path} >
                     <Styled.Link to={el.path}>
                         {el.icon && <Styled.Icon src={el.icon} />}
-                        {el.name}
+                        <Styled.Text>{el.name}</Styled.Text>
                     </Styled.Link>
                 </Styled.ListEl>
             ))}
