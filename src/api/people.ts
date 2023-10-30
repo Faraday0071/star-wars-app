@@ -7,4 +7,5 @@ export const getPeoplePage = (page: number) => swApi.get<SwApiPageResponse<Perso
 
 export const getPerson = (id: number) => swApi.get<Person>(`${PEOPLE_STR}/${id}`)
 
-export const searchPerson = (search: string) => swApi.get<SwApiPageResponse<Person>>(`${PEOPLE_STR}/?search=${search}`)
+export const searchPerson = (search: string, page: number) =>
+    swApi.get<SwApiPageResponse<Person>>(`${PEOPLE_STR}/?search=${search}&page=${page}`)

@@ -28,7 +28,9 @@ export const PersonDetailsPage: FunctionComponent = () => {
         queryKey: ['person-species', personObject.data?.species],
         queryFn: async () => {
             const personData = personObject.data as Person
-            const result = await Promise.allSettled(personData.species.map(sp => api.species.getVehicle(extractId(sp) as number)))
+            const result = await Promise.allSettled(
+                personData.species.map(sp => api.species.getVehicle(extractId(sp) as number))
+            )
             return result.reduce((acc, curr) => {
                 if (curr.status === 'fulfilled') {
                     return [...acc, curr.value.data.name]
@@ -41,7 +43,7 @@ export const PersonDetailsPage: FunctionComponent = () => {
 
     const vehLength = personObject.data?.vehicles;
     const hevObject = useQuery({
-        queryKey: ['person-species', personObject.data?.vehicles],
+        queryKey: ['person-vehicles', personObject.data?.vehicles],
         queryFn: async () => {
             const personData = personObject.data as Person
             const ids = personData.vehicles.map(str => extractId(str)) as number[]

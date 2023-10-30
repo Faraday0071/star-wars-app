@@ -1,16 +1,19 @@
-import { useMemo, useEffect, useRef } from 'react'
+import { useMemo, useEffect, useRef, useState } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useInView } from 'react-intersection-observer'
 import { AxiosResponse } from 'axios'
 import { extractId } from '@/helpers/extractId'
 import { SwApiPageResponse } from '@/helpers/globalTypes'
 import { CardListProps } from '@/components/CardList/CardList'
+import { useDebounce } from '@/hooks/useDebounce'
 
 type UsegetListArg<T extends SwApiPageResponse<unknown>> = {
     getPageMethod: (page: number) => Promise<AxiosResponse<T>>;
     queryKey: string[];
     resourceString: string;
     placholderPicture: string;
+    searchMethod?: (search: string, page: number) => Promise<AxiosResponse<T>>;
+    delaySearch?: number;
 }
 
 export const useGetList = <T extends { name: string; url: string }, S extends SwApiPageResponse<T>>({
@@ -18,16 +21,22 @@ export const useGetList = <T extends { name: string; url: string }, S extends Sw
     queryKey,
     resourceString,
     placholderPicture,
+    searchMethod,
+    delaySearch = 500,
 }: UsegetListArg<S>) => {
+    const [search, setSearch] = useState<string>('')
+    const debounceSearch = useDebounce(search, delaySearch)
     const isBufored = useRef(false) //because of strict mode
     const { inView, ref } = useInView({
         threshold: 0,
     })
 
+    const isSearchAvailable = !!(debounceSearch && searchMethod)
+
     const { data, isFetching, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } = useInfiniteQuery({
-        queryKey,
+        queryKey: isSearchAvailable ? [...queryKey, debounceSearch] : queryKey,
         queryFn: async ({ pageParam = 1 }: { pageParam: number}) => {
-            const response = await getPageMethod(pageParam)
+            const response = await (isSearchAvailable ? searchMethod(debounceSearch, pageParam) : getPageMethod(pageParam))
             return response.data
         },
         initialPageParam: 1,
@@ -60,5 +69,7 @@ export const useGetList = <T extends { name: string; url: string }, S extends Sw
         fullDataList,
         isLoading,
         isFetching,
+        search,
+        setSearch,
     }
 }
