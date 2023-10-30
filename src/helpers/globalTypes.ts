@@ -77,3 +77,9 @@ export type Species = {
     edited: string;
     url: string;
 }
+
+export type ResourceWithId = {
+    name: string;
+    id: number;
+}
+ 
