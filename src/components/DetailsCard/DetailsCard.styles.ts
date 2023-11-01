@@ -34,13 +34,28 @@ const SubContainer = styled.div`
     }
 `
 const Picture = styled.img`
-    max-width: 300px;
+    max-width: 250px;
 
     ${styleConst.MEDIA_QUERY_DETAILS_VIEW} {
         max-width: 200px;
     }
 `
-const DetailsBlock = styled.div``
+const DetailsBlock = styled.div`
+    padding: 0.5rem;
+    font-size: 1.2rem;
+
+    ul {
+        list-style: none;
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        ul {
+            transform: translateX(10px);
+        }
+    }
+`
 
 export const Styled = {
     Container,

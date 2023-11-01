@@ -5,6 +5,7 @@ import { VehiclesPage } from '@/pages/VehiclesPage'
 import { PersonDetailsPage } from '@/pages/PersonDetailsPage'
 import { PlanetDetailspage } from '@/pages/PlanetDetailsPage'
 import { VehicleDetailsPage } from '@/pages/VehicleDetailsPage'
+import { ErrorPage } from '@/pages/ErrorPage'
 import { mainLayoutFn } from '@/layouts/MainLayout/MainLayout'
 import { ROUTES } from '@/helpers/constants'
 
@@ -16,39 +17,39 @@ export const router = createBrowserRouter([
     {
         path: ROUTES.PEOPLE,
         element: mainLayoutFn(CharactersPage),
-        errorElement: <div>404</div>,
+        errorElement: <Navigate to="/unfound" />,
     },
     {
         path: `${ROUTES.PERSON_DETAILS}/:id`,
         element: mainLayoutFn(PersonDetailsPage),
-        errorElement: <div>404</div>,
+        errorElement: <Navigate to="/unfound" />,
     },
     {
         path: ROUTES.VEHICLES,
         element: mainLayoutFn(VehiclesPage),
-        errorElement: <div>404</div>,
+        errorElement: <Navigate to="/unfound" />,
     },
     {
         path: `${ROUTES.VEHICLE_DETAILS}/:id`,
         element: mainLayoutFn(VehicleDetailsPage),
-        errorElement: <div>404</div>,
+        errorElement: <Navigate to="/unfound" />,
     },
     {
         path: ROUTES.PLANETS,
         element: mainLayoutFn(PlanetsPage),
-        errorElement: <div>404</div>,
+        errorElement: <Navigate to="/unfound" />,
     },
     {
         path: `${ROUTES.PLANET_DETAILS}/:id`,
         element: mainLayoutFn(PlanetDetailspage),
-        errorElement: <div>404</div>,
+        errorElement: <Navigate to="/unfound" />,
     },
     {
         path: '*',
-        element: <Navigate to="/unfound" />
+        element: <Navigate to="/unfound" />,
     },
     {
         path: '/unfound',
-        element: <div>404</div>,
+        element: mainLayoutFn(ErrorPage),
     }
 ])

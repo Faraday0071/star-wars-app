@@ -1,4 +1,5 @@
 import { FunctionComponent, Dispatch, SetStateAction } from 'react'
+import { inputAutoFocus } from '@/helpers/inputAutoFocus'
 import { Styled } from './SearchInput.styles'
 
 type SearchInputProps = {
@@ -17,6 +18,7 @@ export const SearchInput: FunctionComponent<SearchInputProps> = ({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             disabled={disabled}
+            ref={inputAutoFocus}
         />
     </Styled.Container>
 )
