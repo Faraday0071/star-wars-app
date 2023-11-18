@@ -20,7 +20,7 @@ export const PlanetDetailsList: FunctionComponent<{ planet: Planet }> = ({ plane
                 return acc
             }, [] as ResourceWithId[])
         },
-        enabled: !!planet?.residents.length,
+        enabled: !!planet.residents.length,
     })
 
     const residents = data?.map(el => (

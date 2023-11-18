@@ -6,6 +6,7 @@ import { NavBar } from '@/components/NavBar/NavBar'
 import { SendTopButton } from '@/components/SendTopButton/SendTopButton'
 import { NAV_LIST } from '@/helpers/constants'
 import { Styled } from './MainLayout.styles'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const MainLayout: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
     const { ref, inView } = useInView({
@@ -21,6 +22,7 @@ export const MainLayout: FunctionComponent<{ children: ReactNode }> = ({ childre
           <NavBar list={NAV_LIST} />
           <SendTopButton show={!inView} />
           <StarsBackground />
+          <Styled.ToastContainer autoClose={false} closeButton={false} />
         </>
     )
 }

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { ToastContainer as OriginalToastContainer } from 'react-toastify'
 import { styleConst } from '@/globalStyles/constants';
 
 const Container =  styled.div`
@@ -23,8 +24,16 @@ const Content = styled.div`
         margin-right: 0.5rem;
     }
 `
+const ToastContainer = styled(OriginalToastContainer)`
+    &&& .Toastify__toast-theme--light {
+        background-color: transparent;
+        color: ${styleConst.STAR_WARS_YELLOW};
+        border: 1px solid ${styleConst.STAR_WARS_YELLOW};
+    }
+`
 
 export const Styled = {
     Container,
     Content,
+    ToastContainer,
 }
